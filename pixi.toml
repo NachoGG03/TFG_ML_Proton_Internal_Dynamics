@@ -2,7 +2,7 @@
 authors = ["IgnacioGG <nachogavilan99@gmail.com>"]
 channels = ["conda-forge"]
 name = "Final_Project"
-platforms = ["linux-64"]
+platforms = ["osx-arm64"]
 version = "0.1.0"
 
 [tasks]
@@ -15,3 +15,4 @@ pandas = ">=1.4.4,<2"
 jupyter = ">=1.1.1,<2"
 lhapdf = ">=6.5.5,<7"
 tqdm = ">=4.67.1,<5"
+scipy = ">=1.17.1,<2"

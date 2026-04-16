@@ -4,3 +4,5 @@ __pycache__/
 *.keras
 data/
 .DS_Store
+*.npy
+*.npz

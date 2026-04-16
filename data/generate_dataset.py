@@ -51,10 +51,9 @@ def create_dataset(pdf_set_name="NNPDF40_nnlo_as_01180"):
     # Save the dataset as a numpy file
     if not os.path.exists("data"):
         os.makedirs("data")
-
-    np.save("data/x_q2_inputs.npy", inputs)
-    np.save("data/pdf_targets.npy", targets)
-    np.save("data/pids_info.npy", np.array(pids))
+    np.save("data/x_q2_inputs_training.npy", inputs)
+    np.save("data/pdf_targets_training.npy", targets)
+    np.save("data/pids_info_training.npy", np.array(pids))
 
     print(f"Dataset generated: {len(inputs)} provided points.")
 
