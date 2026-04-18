@@ -13,7 +13,7 @@ from utils.dictionaries import pids
 
 def create_dataset(pdf_set_name="NNPDF40_nnlo_as_01180"):
     # 1. Grid Generation
-    npoints = int(1e5)  # Number of points to generate
+    npoints = int(1e3)  # Number of points to generate
     # x points. Linear grid from 0.1 to 1, logarithmic grid from 1e-5 to 0.1
     xgrid = np.concatenate(
         (

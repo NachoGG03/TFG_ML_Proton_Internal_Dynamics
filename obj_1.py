@@ -17,8 +17,8 @@ from utils.functions import (
     pid_to_latex,
     plot_LHAPDF,
     plot_pdf_comparison,
-    get_final_report,
-    display_physics_report,
+    plot_pdf_valence,
+    generate_physics_report
 )
 
 
@@ -88,27 +88,27 @@ output_data = np.array(output_data)
 # --- Save path --- #
 results_folder = "results/"
 
-### ----- PLOTS ----- ###
+## ----- PLOTS ----- ###
 # At first we will inspect how the PDFs looks like
-# en = [91]  # Energie value to plot
-# flavours_to_pid = [21, 2, 1, -1]  # Wich PDFs we want to see
-# plot_LHAPDF(
-#     input_xgrid=input_xgrid,
-#     input_q2grid=input_q2grid,
-#     val_pdf=val_pdf,
-#     pids=pids,
-#     scales=en,
-#     flavour_select=flavours_to_pid,
-# )
-# plt.show()
-# plt.close()
+en = [91]  # Energie value to plot
+flavours_to_pid = [21, 2, 1, -1]  # Wich PDFs we want to see
+plot_LHAPDF(
+    input_xgrid=input_xgrid,
+    input_q2grid=input_q2grid,
+    val_pdf=val_pdf,
+    pids=pids,
+    scales=en,
+    flavour_select=flavours_to_pid,
+)
+plt.show()
+plt.close()
 
 # Then we will see how the model fix the data:
 q_values = [5, 91, 200, 1000]
 
 plot_pdf_comparison(
-    input_xgrid == input_xgrid,
-    input_q2grid == input_q2grid,
+    input_xgrid = input_xgrid,
+    input_q2grid = input_q2grid,
     output_data=output_data,
     predictions=predictions,
     pids_to_plot=output_basis,
@@ -117,3 +117,52 @@ plot_pdf_comparison(
     q_targets=q_values,
 )
 plt.show()
+plt.close()
+
+plot_pdf_valence(
+    input_xgrid=input_xgrid,
+    input_q2grid=input_q2grid,
+    output_data=output_data,
+    predictions=predictions,
+    q_values_to_plot=q_values
+)
+path=os.path.join(results_folder, "fig_4.png")
+plt.savefig(path,dpi=300,bbox_inches='tight')
+plt.show()
+plt.close()
+
+# Next, we will verify whether the neural network has been able to learn certain physical constraints on its own.
+# 1. Input Configuration
+target_q = 91
+target_q2 = target_q**2
+
+# Index mapping for flavors and anti-flavors
+idx = {
+    "u": 6, "u_bar": 2, 
+    "d": 5, "d_bar": 3, 
+    "s": 7, "s_bar": 1, 
+    "c": 8, "c_bar": 0, 
+    "g": 4
+}
+
+# 2. Robust Q2 Scale Selection
+available_q2 = np.unique(input_q2grid)
+closest_q2 = available_q2[np.abs(available_q2 - target_q2).argmin()]
+mask = (input_q2grid.flatten() == closest_q2)
+
+# 3. Data Extraction and Sorting by x
+x_vals = input_xgrid.flatten()[mask]
+sort_indices = np.argsort(x_vals)
+x_f = x_vals[sort_indices]
+y_true_f = output_data[mask][sort_indices]
+y_pred_f = predictions[mask][sort_indices]
+
+report = generate_physics_report(
+    x = x_f,
+    y_true = y_true_f,
+    y_pred = y_pred_f,
+    f_map = idx,
+    q2_value = closest_q2,
+    export_path = "results/table_momentum_rules.tex"
+)
+
