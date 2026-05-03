@@ -360,7 +360,15 @@ def plot_pdf_comparison_multi(
     n_pids = len(pids_to_plot)
     n_q2 = len(selected_q2)
 
-    colors = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3"]
+    colors = [
+        "#e41a1c",
+        "#013661",
+        "#4daf4a",
+        "#984ea3",
+        "#fbff00",
+        "#00ffea",
+        "#ff8d41",
+    ]
 
     fig, axes = plt.subplots(
         nrows=n_pids * 2,
@@ -459,8 +467,16 @@ def plot_pdf_valence_multi(
     # Flavor mapping based on your output_basis
     idx = {"u_bar": 2, "d_bar": 3, "g": 4, "d": 5, "u": 6, "s": 7, "c": 8}
 
-    # We defined line styles to distinguish the models (M1 to M4)
-    model_styles = [":", "--", "-.", (0, (3, 5, 1, 5))]
+    # We defined line styles to distinguish the models (M1 to M7)
+    model_styles = [
+        "--",  # M1
+        "-.",  # M2
+        ":",  # M3
+        (0, (3, 5, 1, 5)),  # M4
+        (0, (5, 5)),  # M5
+        (0, (1, 1)),  # M6
+        (0, (5, 1, 1, 1)),  # M7
+    ]
     available_q2 = np.unique(input_q2grid)
 
     for i, q2_target in enumerate(q2_values_to_plot):

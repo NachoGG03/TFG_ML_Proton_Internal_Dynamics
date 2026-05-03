@@ -2,6 +2,7 @@ import tensorflow as tf
 
 
 ## Layers ##
+@tf.keras.utils.register_keras_serializable()
 class InputScaling(tf.keras.layers.Layer):
     """ "Logarithmic scaling of the input data."""
 
@@ -16,6 +17,7 @@ class InputScaling(tf.keras.layers.Layer):
         return tf.concat([x, log_x, log_q2], axis=-1)
 
 
+@tf.keras.utils.register_keras_serializable()
 class Preprocessing(tf.keras.layers.Layer):
     def __init__(self, noutput, **kwargs):
         super().__init__(**kwargs)

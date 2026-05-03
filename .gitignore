@@ -2,9 +2,11 @@
 __pycache__/
 *.h5
 *.keras
-data/
 .DS_Store
 *.npy
 *.npz
 *.png
-*.ipynb
+*.tex
+.ipynb_checkpoints/
+.env
+.vscode/
