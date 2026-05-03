@@ -6,4 +6,4 @@ This project is the Bachelor's Thesis (TFG) focused on the use of Neural Network
 
 To view the `multi_model.ipynb` file, go to the following link:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/NachoGG03/TFG_ML_Proton_Internal_Dynamics/blob/main/multi_model.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1kHLVcO6XgAxEjl32iyMNJnQYEBhFiQr0#scrollTo=8b7ab0c7)
